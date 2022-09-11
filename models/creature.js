@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const creatureSchema = mongoose.Schema({
-  id: {type: Number, required: true},
+  userId: {type: String, required: true},
 
   //genetic
   species: {type: String, required: true},

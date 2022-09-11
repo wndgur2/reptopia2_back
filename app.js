@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Post = require("./models/post");
 
+const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
+
 const app = express();
-
-//mongodb+srv://dbUser:1234@cluster0.f5csc.mongodb.net/
-
 
 mongoose
   .connect(
@@ -19,6 +19,7 @@ mongoose
     console.log("Connection failed!");
   });
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -30,44 +31,12 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
-app.post("/api/posts", (req, res, next) => {
-  const post = new Post({
-    id: req.body.id,
-    title: req.body.title,
-    content: req.body.content,
-    authorId: req.body.authorId,
-    likes: req.body.likes,
-    views: req.body.views,
-    commentIds: req.body.commentIds,
-    date: req.body.date
-  });
-  post.save().then(createdPost => {
-    res.status(201).json({
-      message: "Post added successfully",
-      postId: createdPost._id
-    });
-  });
-});
-
-app.get("/api/posts", (req, res, next) => {
-  Post.find().then(documents => {
-    res.status(200).json({
-      message: "Posts fetched successfully!",
-      posts: documents
-    });
-  });
-});
-
-app.delete("/api/posts/:id", (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id }).then(result => {
-    console.log(result);
-    res.status(200).json({ message: "Post deleted!" });
-  });
-});
+app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
 module.exports = app;

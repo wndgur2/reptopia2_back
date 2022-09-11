@@ -5,4 +5,4 @@ const foodSchema = mongoose.Schema({
   weight: {type: Number, require: true},
 });
 
-module.exports = mongoose.model('food', foodSchema);
+module.exports = mongoose.model('Food', foodSchema);

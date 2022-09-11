@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 
 const cageSchema = mongoose.Schema({
-  id: {type: Number, required:true},
-
-  creatureIds: {type: [Number], required:true},
-  itemIds: {type: [Number], required:true},
+  creatureIds: {type: [String], required:true},
+  itemIds: {type: [String], required:true},
 
   width: {type: Number, required:true},
   depth: {type: Number, required:true},
