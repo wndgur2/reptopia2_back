@@ -10,7 +10,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://dbUser:1234@cluster0.f5csc.mongodb.net/node-angular?retryWrites=true"
+    "mongodb+srv://dbUser:1234@cluster0.f5csc.mongodb.net/node-angular"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, authorization"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",

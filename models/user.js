@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = mongoose.Schema({
-  identifier: {type: String, required: true },
+  email: {type: String, required: true, unique: true },
   password: {type: String, required: true },
 
   level: {type: Number, required: true },
@@ -16,5 +17,7 @@ const userSchema = mongoose.Schema({
   likedCommentIds: {type: [Number], required: true },
   viewedPostIds: {type: [Number], required: true }, //중복 조회 방지
 });
+
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);
