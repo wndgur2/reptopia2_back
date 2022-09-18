@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const dealSchema = mongoose.Schema({
-  creatureId: {type: String, required: true},
-  userId: {type: String, required: true},
+  creatureId: {type: mongoose.Schema.Types.ObjectId, ref: "Creature", required: true},
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
   price: {type: Number, required: true},
   comment: {type: String, required: true},
 });

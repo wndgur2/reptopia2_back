@@ -8,14 +8,15 @@ const userSchema = mongoose.Schema({
   level: {type: Number, required: true },
   achievements: {type: [String], required: true },
   reppi: {type: Number, required: true },
-  creatureIds: {type: [Number], required: true },
-  itemIds: {type: [Number], required: true },
+  creatureIds: {type: [mongoose.Schema.Types.ObjectId], ref: "Creature", required: true },
+  itemIds: {type: [mongoose.Schema.Types.ObjectId], ref: "Item", required: true },
 
-  postIds: {type: [Number], required: true },
-  commentIds: {type: [Number], required: true },
-  likedPostIds: {type: [Number], required: true },
-  likedCommentIds: {type: [Number], required: true },
-  viewedPostIds: {type: [Number], required: true }, //중복 조회 방지
+  postIds: {type: [mongoose.Schema.Types.ObjectId], ref: "post", required: true },
+  likedPostIds: {type: [mongoose.Schema.Types.ObjectId], ref: "post", required: true },
+  viewedPostIds: {type: [mongoose.Schema.Types.ObjectId], ref: "post", required: true }, //중복 조회 방지
+  
+  commentIds: {type: [mongoose.Schema.Types.ObjectId], ref: "comment", required: true },
+  likedCommentIds: {type: [mongoose.Schema.Types.ObjectId], ref: "comment", required: true },
 });
 
 userSchema.plugin(uniqueValidator);

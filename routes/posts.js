@@ -6,11 +6,15 @@ const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
 router.post("", checkAuth,(req, res, next) => {
-  const post = new Post(req.body);
+  const post = new Post({
+    ...req.body,
+    authorId: req.userData.userId
+  });
   post.save().then(createdPost => {
     res.status(201).json({
       message: "Post added successfully",
-      postId: createdPost._id
+      postId: createdPost._id,
+      authorId: req.userData.userId
     });
   });
 });
@@ -18,10 +22,10 @@ router.post("", checkAuth,(req, res, next) => {
 router.put("/:id", checkAuth, (req, res, next) => {
   Post.findByIdAndUpdate({ _id: req.params.id }, {$set: {title:req.body.title, content:req.body.content}}, {new:true},
     (err, r) => {
-    res.status(200).json({ message: "Update successful!" });
+      res.status(200).json({ message: "Update successful!" });
     }
   )
-}); 
+});
 
 router.get("", (req, res, next) => {
   Post.find().then(documents => {

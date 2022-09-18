@@ -1,6 +1,7 @@
 const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+const Deal = require("./models/deal");
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -43,6 +44,24 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
+// creatureId: {type: String, required: true},
+// userId: {type: String, required: true},
+// price: {type: Number, required: true},
+// comment: {type: String, required: true},
+
+// const generateDeal = () => {
+//   Deal.deleteMany({ userId: "adm" }).then(()=>{
+//     const deal = new Deal({
+//       creatureId: new Date().getTime(),
+//       userId: "adm",
+//       price: 2000,
+//       comment: "good ..."
+//     });
+//     deal.save();
+//     console.log("new deal saved.");
+//   });
+// } 
+
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
@@ -50,3 +69,4 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
+// setInterval(generateDeal, 100000); 

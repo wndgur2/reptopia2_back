@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const creatureSchema = mongoose.Schema({
-  userId: {type: String, required: true},
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
 
   //genetic
   species: {type: String, required: true},
   birth: {type: String, required: true},
   sex: {type: String, required: true},
-  morphs: {type: [Number, Number][], required: true},
+  morphs: {type: [[Number, Number]], required: true},
 
   //genetic character
   fear: {type: Number, required: true},
