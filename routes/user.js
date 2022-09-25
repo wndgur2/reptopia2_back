@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const user = require("../models/user");
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.post("/signup", (req, res, next) => {
   .then(hash=>{
     const user = new User({
       email: req.body.email,
+      name: req.body.name,
       password: hash,
       level: 0,
       achievements: [],
@@ -58,13 +60,18 @@ router.post("/login", (req, res, next) => {
         });
       }
       const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id },
+        { email: fetchedUser.email, id: fetchedUser._id, name: fetchedUser.name },
         "Everyday_Easier_With_The_Momentum",
         { expiresIn: "2h" }
       );
       res.status(200).json({
         token: token,
-        expiresIn: 7200
+        expiresIn: 7200,
+        userData: {
+          ...fetchedUser.toJSON(),
+          password: "",
+          id: fetchedUser._id
+        }
       });
     })
     .catch(err => {
@@ -72,6 +79,21 @@ router.post("/login", (req, res, next) => {
         message: "Auth failed"
       });
     });
+});
+
+router.get("/:id", (req, res, next) => {
+  User.findById(req.params.id).then(user => {
+    if (user) {
+      userT = {
+        ...user.toJSON(),
+        password: "",
+        id: user._id
+      };
+      res.status(200).json(userT);
+    } else {
+      res.status(404).json({ message: "User not found!" });
+    }
+  });
 });
 
 module.exports = router;
