@@ -4,7 +4,7 @@ const cageSchema = mongoose.Schema({
   creatureIds: {type: [mongoose.Schema.Types.ObjectId], ref: "Creature", required:true},
   itemIds: {type: [mongoose.Schema.Types.ObjectId], ref: "Item", required:true},
 
-  width: {type: Number, required:false},
+  width: {type: Number, required:true},
   depth: {type: Number, required:true},
   height: {type: Number, required:true},
 
