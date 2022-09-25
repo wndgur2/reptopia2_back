@@ -6,7 +6,7 @@ const postSchema = mongoose.Schema({
   likes: { type: Number, required: true },
   views: { type: Number, required: true },
   authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  authorName: { type: String, required: false },
+  authorName: { type: String, required: true },
   commentIds: { type: [mongoose.Schema.Types.ObjectId], ref: "comment", required: true },
 }, {
   timestamps: true,
