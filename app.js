@@ -6,7 +6,7 @@ const Post = require("./models/post");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const dealsRoutes = require("./routes/deals");
-
+ 
 const app = express();
 
 mongoose
